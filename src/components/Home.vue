@@ -83,7 +83,7 @@ export default {
     background-color: rgb(237, 250, 211);
     border-radius: 10px;
     border: 1px solid #333;
-    font-size: 25px;
+    font-size: 35px;
     font-weight: 700;
     color: #333;
   }
@@ -119,13 +119,23 @@ export default {
     bottom: 20%;
   }
   button{
+    position: relative;
+    bottom: 30px;
     width: 300px;
     height: 100px;
-    border-radius: 3%;
+    border-radius: 10%;
     border: 2px solid #333;
     background-color: rgb(250, 237, 224);
     font-size: 30px;
     font-weight: 600;
     color: #333;
+  }
+  .start{
+      position: absolute;
+  }
+  .about{
+      position: absolute;
+      transform: translateY(120%);
+
   }
 </style>
