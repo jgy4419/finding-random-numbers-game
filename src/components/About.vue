@@ -6,7 +6,7 @@
         <div>{{name}}</div>
         <div>e-mail : {{email}}</div>
         <div>Call : {{call}}</div>
-        <button @click="homeLink">돌아가기</button>
+        <button @click="homeLink" class="button">돌아가기</button>
       </div>
     </div>
   </div>
@@ -58,10 +58,19 @@ export default {
   }
   .text{
     position: absolute;
+    line-height: 80px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     top: 20px;
     margin-left: 50%;
-    margin-top: 5%;
     color: #333;
+  }
+  .button{
+    width: 200px;
+    height: 100px;
+    font-size: 30px;
+    font-weight: 500;
+    border: 5px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
   }
 </style>

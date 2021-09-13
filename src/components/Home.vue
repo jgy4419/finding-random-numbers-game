@@ -10,6 +10,9 @@
       <div class="block3 block">
         100
       </div>
+      <div class="text">
+        숫자 찾기 <br> 게임!
+      </div>
       <div class="option">
         <button class="start" @click="gameLink">Start!</button>
         <button class="about" @click="aboutLink">About</button>
@@ -36,7 +39,7 @@ export default {
         },
         gameLink(){
             this.$router.push({
-                path:'/game'
+                path:'/playgame'
             })
         },
         animation(){
@@ -65,27 +68,31 @@ export default {
   #body{
       margin: 0;
       padding: 0;
-      background-color: rgb(243, 242, 242);
+          background-color: #FDEFEF;
+      width: 100vw;
+      height: 100vh;
+
   }
   main{
     position: relative;
     width: 1000px;
     height: 100vh;
+    background-color: #FDEFEF;
     margin: auto;
   }
   .block{
-    position: absolute;
+    position:  absolute;
     width: 150px;
     height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(237, 250, 211);
+    background-color: #CDBBA7;
     border-radius: 10px;
-    border: 1px solid #333;
+    border: 5px solid rgb(241, 238, 238);
     font-size: 35px;
     font-weight: 700;
-    color: #333;
+    color: #FCF6F5;
   }
   .block1{
     margin: 100px 0%;
@@ -108,6 +115,17 @@ export default {
     transition: 4s;
     transform: translateY(30px);
   }
+  .text{
+    position: absolute;
+    font-size: 100px;
+    font-weight: 900;
+    color: #52514f;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    line-height: 130px;
+    letter-spacing: 5px;
+    margin-bottom: 10%;
+    bottom: 0;
+  }
   .block3.event{
       transform: translateY(-30px);
   }
@@ -121,14 +139,15 @@ export default {
   button{
     position: relative;
     bottom: 30px;
-    width: 300px;
+    width: 250px;
     height: 100px;
-    border-radius: 10%;
-    border: 2px solid #333;
-    background-color: rgb(250, 237, 224);
+    border-radius: 20px 20px;
+    border: 5px solid rgb(235, 232, 232);
+    background-color: #CDBBA7;
     font-size: 30px;
     font-weight: 600;
-    color: #333;
+    color: #FCF6F5;
+    cursor: pointer;
   }
   .start{
       position: absolute;
@@ -136,6 +155,5 @@ export default {
   .about{
       position: absolute;
       transform: translateY(120%);
-
   }
 </style>
