@@ -11,29 +11,26 @@
                 {{randomNum}}
             </div>
             <ul class="numList">
-                <li class="num"
-                    v-for="num, i in 50"
-                    :key="num.randomNumList"
-                    >
-                    {{randomNumList[i]}}
-                </li>
+                <li class="num" v-once v-for="num, i in 50" :key="i">{{Math.floor(Math.random() * num)}}</li>
             </ul>
         </div>
         <button @click="homeLink" class="button">돌아가기</button>
         <div class="success">
             <div class="sucBox">
                 <div class="text">성공하셨습니다!</div>
-                <button @click="homeLink" class="button">Home</button>
-                <button @click="homeLink" class="button">About</button>
-            </div>
-        </div>
-        <!-- <div class="fall">
-            <div class="sucBox">
-                <div class="text">실패하셨습니다!</div>
+                <button @click="again" class="button again">Again!</button>
                 <button @click="homeLink" class="button home">Home</button>
                 <button @click="homeLink" class="button about">About</button>
             </div>
-        </div> -->
+        </div>
+        <div class="fall">
+            <div class="fallBox">
+                <div class="text">실패하셨습니다..</div>
+                <button @click="again" class="button again">Again!</button>
+                <button @click="homeLink" class="button home">Home</button>
+                <button @click="homeLink" class="button about">About</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -42,68 +39,16 @@
 export default {
     data(){
         return{
-            number : 1, // 3으로 설정 
-            countDownNum : 1, // 5으로 설정
+            number : 3, // 3으로 설정 
+            countDownNum : 5, // 5으로 설정
             randomNum : 0,
-            randomNumList : [
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1,
-                Math.floor(Math.random() * 50) + 1
-            ]
+            numList: 50,
         }
     },
     created(){
         this.ready();
         this.random();
         this.numRandom();
-        this.result();
     },
     mounted(){
         this.result();
@@ -111,13 +56,15 @@ export default {
     methods:{
         ready(){
             setInterval(() => {
-                this.number-= 1
+                this.number -= 1
                 // this.ready에 ready()를 붙이면 값이 두 배로 계속 증가하는 이상현상이 생김..
-                this.ready
+                // this.ready
                 // 시간이 0초가 되면 숫자가 사라짐.
                 if(this.number == 0){
                     const delNumber = document.querySelector('.ready');
                     delNumber.style.display = "none";
+                    const gameIn = document.querySelector('.gameIn')
+                    gameIn.style.display = "block";
                     this.countDown()
                 }
             }, 1000)
@@ -127,7 +74,9 @@ export default {
                 this.countDownNum -= 1
                 this.countDown
                 if(this.countDownNum == 0){
-                    // alert("실패하셨습니다.");
+                    var fall = document.querySelector('.fall');
+                    fall.classList.add('event');
+                    this.countDownNum += 1
                 }
             }, 1000)
         },
@@ -135,33 +84,31 @@ export default {
             // Math.floor로 소수 제거, 0부터 시작하므로 (Math.ramdom() * 50) + 1 해서 1~50숫자로 지정해줌.
             this.randomNum = Math.floor(Math.random() * 50) + 1
         },
-        // success(){
-        //     const num = document.querySelector('.randomNum');
-        //     const numList = document.querySelectorAll('.num');
-        //     for(var i = 0; i < numList.length; i++){
-        //         console.log(typeof num)
-        //         console.log(typeof numList[i].innerHTML)
-        //         // console.log(num.innerHTML);
-        //         // console.log(numList[i].innerHTML)
-        //         numList[i].addEventListener('click', function(){
-        //             // numList에서 클릭한 곳 뜨도록 하기\ 
-        //             if(num.innerHTML === numList[1].innerHTML){
-        //                 console.log("성공" + num.innerHTML);
-        //                 console.log("성공" + numList[i]);
-        //             }
-        //             else{
-        //                 console.log("실패" + num.innerHTML);
-        //                 console.log("실패" + numList[1].innerHTML);
-        //             }
-        //         })
-        //     }
-        // },
+        // randomNum과 같은 값 클릭 시 성공! 시간 지나거나, 다른 값 누르면 실패하는 함수.
         result(){
-            let randomNum = document.querySelector('.randomNum');
-            let num = document.querySelectorAll('.num');
-            for(var i = 0; i < num.length; i++){
-                console.log(run[i]);
+            let numListOne = document.querySelectorAll('.num');
+            // 타입 변경
+            let numChange = this.randomNum.toString();
+            console.log(typeof numChange); // 위에 숫자 타입
+            console.log(numChange); // 위에 숫자 값
+            for(let i = 0; i < numListOne.length; i++){
+                numListOne[i].addEventListener('click', function(){
+                    let result = numListOne[i].innerHTML == numChange;
+                    if(result){
+                        const success = document.querySelector('.success');
+                        success.classList.add('event');
+                        this.countDownNum += 1;
+                    }
+                    else{
+                        const fall = document.querySelector('.fall');
+                        fall.classList.add('event');
+                        this.countDownNum += 1;
+                    }
+                })
             }
+        },
+        again(){
+            location.reload();
         },
         homeLink(){
                 this.$router.push({
@@ -180,8 +127,15 @@ export default {
         padding: 0;
         background-color: #FCF6F5;
     } */
+    .gameIn{
+        display: none;
+    }
     ul, li{
         list-style: none;
+    }
+    li:hover{
+        background-color: #333;
+        color: #FCF6F5;
     }
     .body{
         position: relative;
@@ -251,24 +205,61 @@ export default {
         right: 0;
         margin-bottom: 10px;
     }
-    .success{
-        display: none;
+    .success, .fall{
         position: absolute;
+        z-index: -1;
+        top: 10%;
+        left: 25%;
+        opacity: 0;
         width: 500px;
-        height: 700px;
-        background-color: #333;
+        height: 500px;
+        border-radius: 10px;
+        border: 3px solid rgb(167, 165, 165);
+        background-color: #FCF6F5;
+        transition: 1s;
+        transform: translateY(20px);
     }
-    .sucBox .text{
+    .success.event, .fall.event{
+        z-index: 1;
+        transition: 1s;
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    .sucBox .text,
+    .fallBox .text{
+        position: absolute;
+        left: 18%;
+        top: 10%;
         font-size: 50px;
-        color:#FCF6F5;
+        color:rgb(122, 122, 119);
         font-weight: 700;
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         text-align: center;
     }
-    .sucBox .button.home{
-        margin: 10px;
+    .sucBox .button,
+    .fallBox .button{
+        position: absolute;
+        bottom: 0;
+        border: 2px solid rgb(243, 235, 235);
+        background-color: rgb(230, 238, 156);
+        width: 100%;
     }
-    .sucBox .button.about{
-        margin-top: 200px;
+    .sucBox .button:hover
+    .fallBox .button:hover{
+        background-color: #FCF6F5;
+        border: 2px solid rgb(230, 238, 156);
+        
+    }
+    .sucBox .button.again,
+    .fallBox .button.again{
+        margin-bottom: 20%;
+    }
+    .sucBox .button.home,
+    .fallBox .button.home{
+        margin-bottom: 10%;
+    }
+    .sucBox .button.about,
+    .fallBox .button.about{
+        margin-bottom: 0px;
     }
 </style>
