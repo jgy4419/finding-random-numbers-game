@@ -10,6 +10,7 @@
       <div class="block3 block">
         100
       </div>
+      <div class="backStyle"/>
       <div class="text">
         숫자 찾기 <br> 게임!
       </div>
@@ -141,13 +142,18 @@ export default {
     bottom: 30px;
     width: 250px;
     height: 100px;
+    background-color: #FDEFEF;
     border-radius: 20px 20px;
-    border: 5px solid rgb(235, 232, 232);
-    background-color: #CDBBA7;
+    border: 5px solid rgb(142, 140, 140);
     font-size: 30px;
     font-weight: 600;
-    color: #FCF6F5;
+    color: #9c9999;
     cursor: pointer;
+  }
+  .start:active{
+    background-image: url("https://user-images.githubusercontent.com/76980526/133887433-74566f48-6314-4a08-b0f9-0ed0706bb0f9.png");
+    background-size: cover;
+    color: #333;
   }
   .start{
       position: absolute;

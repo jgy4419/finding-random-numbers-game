@@ -11,7 +11,8 @@
                 {{randomNum}}
             </div>
             <ul class="numList">
-                <li class="num" v-once v-for="num, i in 50" :key="i">{{Math.floor(Math.random() * num)}}</li>
+                <li class="num" v-for="num in numList" :key="num"
+                @click="result">{{num}}</li>
             </ul>
         </div>
         <button @click="homeLink" class="button">돌아가기</button>
@@ -42,7 +43,7 @@ export default {
             number : 3, // 3으로 설정 
             countDownNum : 5, // 5으로 설정
             randomNum : 0,
-            numList: 50,
+            numList: []
         }
     },
     created(){
@@ -51,9 +52,18 @@ export default {
         this.numRandom();
     },
     mounted(){
-        this.result();
+        this.randomList();
+        // this.result();
     },
     methods:{
+        randomList(){
+            /* 50개 나열된 숫자 겹치지 않게 지정된 변수(값) */
+            let arrayLength = Array(50).fill().map(function(a, i){return i + 1;})
+            while(arrayLength.length > 0){
+                let value = arrayLength.splice(Math.floor(Math.random() * arrayLength.length),1)[0];
+                this.numList.push(value);
+            }
+        },
         ready(){
             setInterval(() => {
                 this.number -= 1
@@ -84,8 +94,7 @@ export default {
             // Math.floor로 소수 제거, 0부터 시작하므로 (Math.ramdom() * 50) + 1 해서 1~50숫자로 지정해줌.
             this.randomNum = Math.floor(Math.random() * 50) + 1
         },
-        // randomNum과 같은 값 클릭 시 성공! 시간 지나거나, 다른 값 누르면 실패하는 함수.
-        result(){
+         result(){
             let numListOne = document.querySelectorAll('.num');
             // 타입 변경
             let numChange = this.randomNum.toString();
